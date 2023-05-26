@@ -1,5 +1,7 @@
 package project.webapplication.erpsystem.service.imple;
 
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.webapplication.erpsystem.dto.EmployeeDto;
@@ -20,30 +22,42 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private  SalaryRepository salaryRepository;
 
+    private ModelMapper modelMapper = new ModelMapper();
+
+    public EmployeeServiceImpl() {
+    }
+
+    public EmployeeServiceImpl(EmployeesRepository employeesRepository, SalaryRepository salaryRepository, ModelMapper modelMapper) {
+        this.employeesRepository = employeesRepository;
+        this.salaryRepository = salaryRepository;
+        this.modelMapper = modelMapper;
+    }
+
     public EmployeeServiceImpl(EmployeesRepository employeesRepository, SalaryRepository salaryRepository) {
         this.employeesRepository = employeesRepository;
         this.salaryRepository = salaryRepository;
     }
 
     @Override
-    public List<Employees> findAll() {
-        return employeesRepository.findAll();
+    public List<EmployeeDto> findAll() {
+        List<Employees> employeeList = employeesRepository.findAll();
+        TypeToken<List<EmployeeDto>> typeToken = new TypeToken<List<EmployeeDto>>(){};
+        return modelMapper.map(employeeList, typeToken.getType());
     }
 
     @Override
-    public Employees findById(String id) {
-        return employeesRepository.findById(id).get();
+    public EmployeeDto findById(String id) {
+        Employees employees = employeesRepository.findById(id).orElse(null);
+        if (employees!= null){
+            return modelMapper.map(employees,EmployeeDto.class);
+        }
+        return null;
     }
 
     @Override
-    public Employees save(Employees employees) {
-        Employees newEmployees = new Employees();
-        newEmployees.setEmployeeId(employees.getEmployeeId());
-        newEmployees.setEmployeeName(employees.getEmployeeName());
-        newEmployees.setEmployeeAge(employees.getEmployeeAge());
-        newEmployees.setEmployeeNumberPhone(employees.getEmployeeNumberPhone());
-        newEmployees.setEmployeeAddress(employees.getEmployeeAddress());
-        return employeesRepository.save(newEmployees);
+    public void save(EmployeeDto employeeDto) {
+         Employees employees = modelMapper.map(employeeDto, Employees.class);
+         employeesRepository.save(employees);
     }
 
     @Override
@@ -52,13 +66,23 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employees update(Employees employees) {
-        Employees employeesUpdate = employeesRepository.findById(employees.getEmployeeId()).get();
-        if (!employees.getEmployeeName().equals("")) {employeesUpdate.setEmployeeName(employees.getEmployeeName());}
-        if (employees.getEmployeeAge() != null) { employeesUpdate.setEmployeeAge(employees.getEmployeeAge());}
-        if (!employees.getEmployeeNumberPhone().equals("")) { employeesUpdate.setEmployeeNumberPhone(employees.getEmployeeNumberPhone());}
-        if (!employees.getEmployeeAddress().equals("")) { employeesUpdate.setEmployeeAddress(employees.getEmployeeAddress());}
-        return employeesRepository.save(employeesUpdate);
+    public void update(EmployeeDto employeeDto) {
+        Employees employeesUpdate = employeesRepository.findById(employeeDto.getEmployeeId()).orElse(null);
+        if (employeesUpdate!=null) {
+            if (!employeeDto.getEmployeeName().isEmpty()) {
+                employeesUpdate.setEmployeeName(employeeDto.getEmployeeName());
+            }
+            if (employeeDto.getEmployeeAge()!=null) {
+                employeesUpdate.setEmployeeAge(employeeDto.getEmployeeAge());
+            }
+            if (!employeeDto.getEmployeeNumberPhone().isEmpty()) {
+                employeesUpdate.setEmployeeNumberPhone(employeeDto.getEmployeeNumberPhone());
+            }
+            if (!employeeDto.getEmployeeAddress().isEmpty()) {
+                employeesUpdate.setEmployeeAddress(employeeDto.getEmployeeAddress());
+            }
+            employeesRepository.save(employeesUpdate);
+        }
     }
 
     @Override

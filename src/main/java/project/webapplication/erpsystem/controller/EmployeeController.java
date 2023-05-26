@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import project.webapplication.erpsystem.dto.EmployeeDto;
 import project.webapplication.erpsystem.models.Employees;
 import project.webapplication.erpsystem.service.EmployeeService;
 
@@ -29,10 +30,10 @@ public class EmployeeController {
         return "employeeList";
     }
     @PostMapping("/add")
-    public String add(@ModelAttribute("newEmployee") Employees employees, RedirectAttributes redirectAttributes){
+    public String add(@ModelAttribute("newEmployee") EmployeeDto employeeDto, RedirectAttributes redirectAttributes){
         try {
-            if (!employeeService.existsById(employees.getEmployeeId())){
-                employeeService.save(employees);
+            if (!employeeService.existsById(employeeDto.getEmployeeId())){
+                employeeService.save(employeeDto);
                 redirectAttributes.addFlashAttribute("success","Thêm thành công!");
             }else {
                 redirectAttributes.addFlashAttribute("failed","Mã nhân viên này đã tồn tại");
@@ -44,10 +45,10 @@ public class EmployeeController {
         return "redirect:/employeeList";
     }
     @GetMapping("/edit")
-    public String edit(@ModelAttribute("editEmployee")Employees employees, RedirectAttributes redirectAttributes){
+    public String edit(@ModelAttribute("editEmployee")EmployeeDto employeesDto, RedirectAttributes redirectAttributes){
         try {
-            if (employeeService.existsById(employees.getEmployeeId())){
-                employeeService.update(employees);
+            if (employeeService.existsById(employeesDto.getEmployeeId())){
+                employeeService.update(employeesDto);
                 redirectAttributes.addFlashAttribute("success","Cập nhật thành công!");
             }else {
                 redirectAttributes.addFlashAttribute("failed","Mã nhân viên này không tồn tại");
@@ -62,7 +63,6 @@ public class EmployeeController {
     @PostMapping("/delete")
     public String delete(@RequestParam String idDelete, RedirectAttributes redirectAttributes){
         try {
-            System.out.println(idDelete);
             if (employeeService.existsById(idDelete)){
                 employeeService.deleteById(idDelete);
                 redirectAttributes.addFlashAttribute("success","Xóa thành công!");

@@ -8,13 +8,14 @@ import project.webapplication.erpsystem.models.Employees;
 import java.util.List;
 
 public interface EmployeeService {
-    List<Employees> findAll();
-    Employees findById(String id);
-    Employees save(Employees employees);
+
+    List<EmployeeDto> findAll();
+    EmployeeDto findById(String id);
+    void save(EmployeeDto employeeDto);
 
     boolean existsById(String id);
 
-    Employees update(Employees employees);
+    void update(EmployeeDto employeeDto);
 
     void deleteById(String id);
 

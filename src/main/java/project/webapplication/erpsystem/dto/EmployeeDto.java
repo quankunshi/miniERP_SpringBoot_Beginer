@@ -1,19 +1,27 @@
 package project.webapplication.erpsystem.dto;
 
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import project.webapplication.erpsystem.models.Position;
+
+import java.util.Collection;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmployeeDto {
-    private String id;
-    private String fullName;
-    private int age;
-    private int numberPhone;
-    private String address;
+
+    private String employeeId;
+    private String employeeName;
+    private Integer employeeAge;
+    private String employeeNumberPhone;
+    private String employeeAddress;
+    private List<Position> positions;
 
 
 }
