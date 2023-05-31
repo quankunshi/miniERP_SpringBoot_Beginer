@@ -13,5 +13,11 @@ public interface SalaryService {
 
     boolean exitSalary(String id, Date date);
 
-    Salary save(Salary salary);
+    void save(SalaryDto salaryDto);
+
+    void update(SalaryDto salaryDto);
+
+    SalaryDto findSalaryByEmployeeIdAndDate(String employeeId, Date date);
+
+    void delete(SalaryDto salaryDto);
 }

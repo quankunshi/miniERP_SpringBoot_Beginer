@@ -44,10 +44,10 @@
                                 data-target="#addSalaryModal" data-whatever="@mdo">Thêm
                         </button>
                         <button type="submit" class="btn btn-outline-primary" data-toggle="modal"
-                                data-target="#EditModal" data-whatever="@mdo">Sửa
+                                data-target="#editSalaryModal" data-whatever="@mdo">Sửa
                         </button>
                         <button type="submit" class="btn btn-outline-primary" data-toggle="modal"
-                                data-target="#DeleteModal" data-whatever="@mdo">Xóa
+                                data-target="#deleteSalaryModal" data-whatever="@mdo">Xóa
                         </button>
                     </div>
                 </div>
@@ -55,6 +55,7 @@
                     <table class="table text-left align-middle table-bordered table-hover mb-0">
                         <thead>
                         <tr class="text-dark">
+                            <th scope="col">Ngày Tháng</th>
                             <th scope="col">Mã Nhân Viên</th>
                             <th scope="col">Họ và Tên</th>
                             <th scope="col">Vị Trí</th>
@@ -63,10 +64,15 @@
                         </thead>
                         <tbody>
                         <tr th:each="salary:${salaryList}">
-                            <td th:text="${salary.employee_id}" onclick="#"/>
-                            <td th:text="${salary.fullName}" onclick="#"/>
-                            <td th:text="${salary.namePosition}" onclick="#"/>
-                            <td th:text="${salary.amount}" onclick="#"/>
+                            <td th:text="${salary.date}"/>
+                            <td th:text="${salary.employee.employeeId}"/>
+                            <td th:text="${salary.employee.employeeName}"/>
+                            <td>
+                                <span th:unless="${salary.employee.positions}">Chưa phân công</span>
+                                <span th:each="position : ${salary.employee.positions}"
+                                      th:text="${position.positionName}"></span>
+                            </td>
+                            <td th:text="${salary.salaryAmount}"/>
                         </tr>
                         </tbody>
                     </table>
@@ -90,7 +96,7 @@
 </div>
 </div>
 <!--Add Start-->
-<div th:replace="fragments/form.html :: addSalaryModal"></div>
+<div th:replace="~{fragments/form :: addSalaryModal}"></div>
 <!--Add End-->
 <!-- script -->
 <script th:replace="~{fragments/script :: script}"></script>
