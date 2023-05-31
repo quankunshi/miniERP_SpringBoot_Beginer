@@ -58,18 +58,23 @@
                         <tr class="text-dark">
                             <th scope="col">Mã Nhân Viên</th>
                             <th scope="col">Họ và Tên</th>
-                            <th scope="col">Tuổi</th>
-                            <th scope="col">Số Điện Thoại</th>
-                            <th scope="col">Địa Chỉ</th>
+                            <th scope="col">Chức Vụ</th>
+                            <th scope="col">Ngày Vào Làm</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="employee:${employeeList}">
-                            <td th:text="${employee.employeeId}" onclick="#"/>
-                            <td th:text="${employee.employeeName}" onclick="#"/>
-                            <td th:text="${employee.employeeAge} " onclick="#"/>
-                            <td th:text="${employee.employeeNumberPhone}" onclick="#"/>
-                            <td th:text="${employee.employeeAddress}" onclick="#"/>
+                            <td th:text="${employee.employeeId}"/>
+                            <td th:text="${employee.employeeName}"/>
+                            <td>
+                                <span th:unless="${employee.positions}">Chưa phân công</span>
+                                <span th:each="position: ${employee.positions}"
+                                      th:text="${position.positionName}"></span>
+                            </td>
+                            <td class="employee-info-btn d-flex justify-content-between">
+                                <span th:text="${employee.joiningDate}"/>
+                                <a class="bi bi-three-dots scale-hover" th:href="@{/employee/{id}(id=${employee.employeeId})}"></a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -91,25 +96,45 @@
         <i class="bi bi-arrow-up"></i>
     </a>
 </div>
-</div>
-
 
 
 <!--Add Start-->
-<div th:replace="fragments/form.html :: addModal"></div>
+<div th:replace="~{fragments/form :: addModal}"></div>
 <!--Add End-->
 
 <!--Edit Start-->
-<div th:replace="fragments/form.html :: editModal"></div>
+<div th:replace="~{fragments/form :: editModal}"></div>
 <!--Edit End-->
 <!--Delete begin-->
-<div th:replace="fragments/form.html :: deleteModal"></div>
+<div th:replace="~{fragments/form :: deleteModal}"></div>
 <!--End-->
-
-
 <!--End-->
 <!-- script -->
 <script th:replace="~{fragments/script :: script}"></script>
+<script th:inline="javascript">
+    function populatePositions(element) {
+        var positions = /*[[${positionList}]]*/ [];
+        var selectElement = document.getElementById(element);
+        while (selectElement.options.length > 1) {
+            selectElement.remove(selectElement.options.length - 1);
+        }
+
+        positions.forEach(function(position) {
+            var option = document.createElement('option');
+            option.value = position.positionId;
+            option.text = position.positionName;
+            selectElement.appendChild(option);
+        });
+    }
+
+    $('#addModal').on('shown.bs.modal', function() {
+        populatePositions("positionSelectAdd");
+    });
+
+    $('#editModal').on('shown.bs.modal', function() {
+        populatePositions("positionSelectUpdate");
+    });
+</script>
 </body>
 
 </html>
