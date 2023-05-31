@@ -19,5 +19,7 @@ public interface EmployeeService {
 
     void deleteById(String id);
 
+    List<Object[]> findEmployeePositionCounts();
+
 
 }

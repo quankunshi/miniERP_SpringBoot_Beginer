@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.Date;
 
 
 @Data
@@ -30,15 +30,14 @@ public class Employees {
     private String employeeNumberPhone;
     @Column(name = "employee_address")
     private String employeeAddress;
+    @Column(name = "employee_sex")
+    private String employeeSex;
 
-
-    @ManyToMany
-    @JoinTable(
-            name = "employee_position",
-            joinColumns = @JoinColumn(name = "employee_id"),
-            inverseJoinColumns = @JoinColumn(name = "position_id")
-    )
-    private Collection<Position> positions;
+    @Column(name = "employee_joiningDate")
+    private Date joiningDate;
+    @ManyToOne
+    @JoinColumn(name = "position_id")
+    private Position positions;
 
     @ManyToMany
     @JoinTable(name = "employee_vehicle",joinColumns = @JoinColumn(name = "employee_id"),

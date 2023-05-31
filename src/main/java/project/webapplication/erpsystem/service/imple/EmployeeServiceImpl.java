@@ -1,5 +1,6 @@
 package project.webapplication.erpsystem.service.imple;
 
+import jakarta.validation.constraints.Null;
 import org.modelmapper.Condition;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -7,7 +8,9 @@ import org.modelmapper.spi.MappingContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.webapplication.erpsystem.dto.EmployeeDto;
+import project.webapplication.erpsystem.dto.PositionDto;
 import project.webapplication.erpsystem.models.Employees;
+import project.webapplication.erpsystem.models.Position;
 import project.webapplication.erpsystem.models.Salary;
 import project.webapplication.erpsystem.repository.EmployeesRepository;
 import project.webapplication.erpsystem.repository.SalaryRepository;
@@ -43,8 +46,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<EmployeeDto> findAll() {
         List<Employees> employeeList = employeesRepository.findAll();
         return employeeList.stream()
-                .map(employee -> modelMapper.map(employee, EmployeeDto.class))
-                .collect(Collectors.toList());
+                .map(employee -> modelMapper.map(employee, EmployeeDto.class))//iterate over the elements and map to EmployeeDto
+                .collect(Collectors.toList());//gather the EmployeeDto and make a list
     }
 
     @Override
@@ -55,6 +58,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return null;
     }
+
 
     @Override
     public void save(EmployeeDto employeeDto) {
@@ -116,6 +120,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         // Xóa nhân viên
         employeesRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Object[]> findEmployeePositionCounts() {
+        return employeesRepository.findEmployeePositionCounts();
+
     }
 
 

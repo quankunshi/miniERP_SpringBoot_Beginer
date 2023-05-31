@@ -1,5 +1,6 @@
 package project.webapplication.erpsystem.repository;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import project.webapplication.erpsystem.models.Employees;
@@ -19,4 +20,13 @@ public interface EmployeesRepository extends CrudRepository<Employees,String> {
 
     @Override
     boolean existsById(String s);
+
+    @Query(value = "SELECT p.position_name, COUNT(e.position_id) " +
+            "FROM Position p LEFT JOIN Employees e ON e.position_id = p.position_id " +
+            "GROUP BY p.position_id, p.position_name",
+            nativeQuery = true)
+    List<Object[]> findEmployeePositionCounts();
+
+
+
 }
