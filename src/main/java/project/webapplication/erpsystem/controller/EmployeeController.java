@@ -98,7 +98,7 @@ public class EmployeeController {
         }
         System.out.println(employeeDto);
         model.addAttribute("title","Chi Tiết Nhân Viên");
-        return "detailEmployee";
+        return "detail";
     }
     @GetMapping("/employee/{id}")
     public String findById(@PathVariable("id") String id,RedirectAttributes redirectAttributes){

@@ -278,3 +278,27 @@
 .bg-light.rounded.h-100.p-4 #tableEmployees{
     width: 200%;
 }
+
+.scale-hover{
+    display: none;
+  }
+
+
+.table td {
+  width: 300px; /* Đặt kích thước cố định cho cột */
+  white-space: nowrap; /* Ngăn các nội dung quá dài bị tràn */
+  overflow: hidden; /* Ẩn nội dung vượt quá kích thước */
+  text-overflow: ellipsis; /* Hiển thị dấu chấm (...) khi nội dung bị ẩn */
+}
+
+.table td:hover {
+  width: 300px; /* Đảm bảo kích thước không thay đổi khi hover */
+}
+
+tr:hover .scale-hover {
+    display: inline-block;
+  }
+
+.scale-hover:hover {
+  transform: scale(1.1);
+    }
