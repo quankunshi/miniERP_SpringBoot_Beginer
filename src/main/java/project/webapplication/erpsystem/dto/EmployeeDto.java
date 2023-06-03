@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import project.webapplication.erpsystem.models.Position;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +22,7 @@ public class EmployeeDto {
     private String employeeName;
     private Integer employeeAge;
     private String employeeNumberPhone;
-    private Date joiningDate;
+    private LocalDate joiningDate;
     private String employeeAddress;
     private Position positions;
 

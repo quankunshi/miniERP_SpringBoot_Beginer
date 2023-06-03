@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 
@@ -34,7 +35,7 @@ public class Employees {
     private String employeeSex;
 
     @Column(name = "employee_joiningDate")
-    private Date joiningDate;
+    private LocalDate joiningDate;
     @ManyToOne
     @JoinColumn(name = "position_id")
     private Position positions;

@@ -16,12 +16,15 @@ import project.webapplication.erpsystem.service.SalaryService;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class SalaryServiceImpl implements SalaryService {
     @Autowired
     SalaryRepository salaryRepository;
+    @Autowired
+    EmployeesRepository employeesRepository;
     ModelMapper modelMapper = new ModelMapper();
 
     public SalaryServiceImpl() {
@@ -53,7 +56,11 @@ public class SalaryServiceImpl implements SalaryService {
     @Override
     public void save(SalaryDto salaryDto) {
        Salary salary = modelMapper.map(salaryDto,Salary.class);
-       salaryRepository.save(salary);
+       Optional<Employees> employee = employeesRepository.findById(salaryDto.getEmployee().getEmployeeId());
+       if (employee.isPresent()) {
+           salary.setEmployee(employee.get());
+           salaryRepository.save(salary);
+       }
     }
 
     @Override
