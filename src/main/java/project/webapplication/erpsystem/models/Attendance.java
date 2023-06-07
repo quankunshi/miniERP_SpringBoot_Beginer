@@ -15,12 +15,15 @@ public class Attendance {
     @JoinColumn(name = "employee_id")
     private Employees employee;
 
+
     @Column(name = "check_in")
     private Date checkIn;
 
     @Column(name = "check_out")
     private Date checkOut;
 
+    @Column(name = "hours_worked")
+    private boolean hoursWorked;
     // Constructors, getters, and setters
 }
 
