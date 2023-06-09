@@ -8,6 +8,5 @@ import java.util.Date;
 import java.util.List;
 
 public interface AttendanceRepository extends JpaRepository<Attendance, Integer> {
-    @Query("SELECT DISTINCT checkIn FROM Attendance")
-    List<Date> findDistinctByCheckIn();
+
 }

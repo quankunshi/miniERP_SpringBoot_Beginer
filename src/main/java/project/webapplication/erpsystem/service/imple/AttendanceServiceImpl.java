@@ -34,9 +34,6 @@ public class AttendanceServiceImpl implements AttendanceService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<Date> findDateList(){
-        return attendanceRepository.findDistinctByCheckIn();
-    }
+
 
 }

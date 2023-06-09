@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
 <head th:replace="~{fragments/head :: head}"></head>
 
@@ -29,31 +29,15 @@
     <!-- Form Start -->
     <div class="container-fluid pt-4 px-4">
       <div class="bg-light text-center rounded p-4">
-        <h4 class="text-left mb-0">Bảng Chấm Công</h4>
-        <div class="d-flex align-items-center justify-content-between mb-4">
-          <div>
-            <button type="button" class="btn btn-outline-primary" data-toggle="modal"
-                    data-target="#addModal" data-whatever="@mdo">Chấm Công
-            </button>
-            <button type="submit" class="btn btn-outline-primary" data-toggle="modal"
-                    data-target="#editModal" data-whatever="@mdo">Sửa
-            </button>
-            <button type="submit" class="btn btn-outline-primary" data-toggle="modal"
-                    data-target="#deleteModal" data-whatever="@mdo">Xóa
-            </button>
+        <h4 class="text-left mb-0">Bảng Chấm Công</h4><br>
+        <div class="d-flex flex-column text-left">
+          <div class="col-12" th:each="employeeDto : ${employeeDtoList}">
+            <div class="card mb-12">
+              <div class="card-body">
+                <h5 class="card-title" th:text="${employeeDto.employeeName}"></h5>
+              </div>
+            </div><br>
           </div>
-        </div>
-        <div>
-          <table class="table text-left align-middle table-bordered table-hover mb-0">
-            <thead>
-            <tr class="text-dark">
-              <th scope="col">Mã Nhân Viên</th>
-              <th scope="col">Họ và Tên</th>
-              <th scope="col">Chức Vụ</th>
-              <th scope="col">Ngày Vào Làm</th>
-            </tr>
-            </thead>
-          </table>
         </div>
       </div>
     </div>

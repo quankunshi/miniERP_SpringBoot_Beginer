@@ -10,5 +10,5 @@ public interface AttendanceService {
 
     List<AttendanceDto> findAll();
 
-    List<Date> findDateList();
+
 }
