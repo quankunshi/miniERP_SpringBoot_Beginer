@@ -24,5 +24,8 @@ public class SalaryDto {
     private BigDecimal salaryAmount;
 
 
+    private BigDecimal salaryAmountFinal;
+
+    private int dayWork;
     private Date date;
 }

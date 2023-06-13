@@ -20,4 +20,6 @@ public interface SalaryService {
     SalaryDto findSalaryByEmployeeIdAndDate(String employeeId, Date date);
 
     void delete(SalaryDto salaryDto);
+
+    void salary(List<SalaryDto> salaryDto);
 }

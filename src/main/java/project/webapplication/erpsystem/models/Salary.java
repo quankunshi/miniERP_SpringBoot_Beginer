@@ -26,6 +26,8 @@ public class Salary {
     @Column(name = "salary_amount")
     private BigDecimal salaryAmount;
 
+    @Column(name = "salary_amountFinal")
+    private BigDecimal salaryAmountFinal;
     @Column(name = "date")
     private Date date;
 }

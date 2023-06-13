@@ -58,8 +58,11 @@
                             <th scope="col">Ngày Tháng</th>
                             <th scope="col">Mã Nhân Viên</th>
                             <th scope="col">Họ và Tên</th>
-                            <th scope="col">Vị Trí</th>
-                            <th scope="col">Lương</th>
+                            <th scope="col">Chức Vụ</th>
+                            <th scope="col">Chấm Công</th>
+                            <th scope="col">Lương Cơ Bản</th>
+
+                            <th scope="col">Tổng Lương</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -72,7 +75,9 @@
                                 <span th:each="position : ${salary.employee.positions}"
                                       th:text="${position.positionName}"></span>
                             </td>
+                            <td th:text="${salary.dayWork}"/>
                             <td th:text="${salary.salaryAmount}"/>
+                            <td th:text="${salary.salaryAmountFinal}"/>
                         </tr>
                         </tbody>
                     </table>

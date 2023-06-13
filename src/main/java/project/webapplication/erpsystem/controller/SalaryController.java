@@ -10,20 +10,27 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.webapplication.erpsystem.dto.SalaryDto;
 import project.webapplication.erpsystem.models.Employees;
 import project.webapplication.erpsystem.models.Salary;
+import project.webapplication.erpsystem.service.AttendanceService;
 import project.webapplication.erpsystem.service.SalaryService;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class SalaryController {
     @Autowired
     SalaryService salaryService;
+
+    @Autowired
+    AttendanceService attendanceService;
     @GetMapping("/salary")
     public String Salary(Model model, Principal principal) {
         if (principal == null) {
             return "redirect:/login";
         }
-        model.addAttribute("salaryList",salaryService.findEmployeeSalary());
+        List<SalaryDto> salaryDtoList = salaryService.findEmployeeSalary();
+        salaryService.salary(salaryDtoList);
+        model.addAttribute("salaryList",salaryDtoList);
         model.addAttribute("title","Danh Sách Lương Nhân Viên");
         model.addAttribute("salary_add",new SalaryDto());
         model.addAttribute("salary_edit", new SalaryDto());

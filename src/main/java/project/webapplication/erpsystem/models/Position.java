@@ -21,7 +21,7 @@ public class Position {
     @Column(name = "position_name", length = 30)
     private String positionName;
 
-    @Column(name = "position_salarybase")
+    @Column(name = "salary_base")
     private BigDecimal salaryBase;
 
 

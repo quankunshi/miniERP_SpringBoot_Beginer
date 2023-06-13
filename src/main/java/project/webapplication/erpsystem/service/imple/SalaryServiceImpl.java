@@ -11,8 +11,11 @@ import project.webapplication.erpsystem.models.Position;
 import project.webapplication.erpsystem.models.Salary;
 import project.webapplication.erpsystem.repository.EmployeesRepository;
 import project.webapplication.erpsystem.repository.SalaryRepository;
+import project.webapplication.erpsystem.service.AttendanceService;
 import project.webapplication.erpsystem.service.SalaryService;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +28,10 @@ public class SalaryServiceImpl implements SalaryService {
     SalaryRepository salaryRepository;
     @Autowired
     EmployeesRepository employeesRepository;
+
+    @Autowired
+    AttendanceService attendanceService;
+
     ModelMapper modelMapper = new ModelMapper();
 
     public SalaryServiceImpl() {
@@ -82,5 +89,20 @@ public class SalaryServiceImpl implements SalaryService {
     public void delete(SalaryDto salaryDto) {
         Salary salarydelete = salaryRepository.findSalaryByEmployeeIdAndDate(salaryDto.getEmployee().getEmployeeId(),salaryDto.getDate());
         salaryRepository.delete(salarydelete);
+    }
+
+    @Override
+    public void salary(List<SalaryDto> salaryDtoList) {
+        if (salaryDtoList !=  null){
+            for (SalaryDto salaryDto : salaryDtoList){
+                //It's disgusting, I'm scared of what I do. This is a pile of garbage, I did, and you saw them =))
+                if (salaryDto.getSalaryAmount()!= null) {
+                    salaryDto.setDayWork(attendanceService.countDaysByMonthAndYearAndEmployeeId(6, 2023, salaryDto.getEmployee().getEmployeeId()));
+                    salaryDto.setSalaryAmountFinal(BigDecimal.valueOf((float) salaryDto.getDayWork() / 30).multiply(salaryDto.getEmployee().getPositions().getSalaryBase().multiply(salaryDto.getSalaryAmount())).setScale(2, RoundingMode.HALF_UP));
+                    salaryRepository.save(modelMapper.map(salaryDto, Salary.class));
+                }
+
+            }
+        }
     }
 }

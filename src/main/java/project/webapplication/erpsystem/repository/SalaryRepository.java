@@ -25,4 +25,5 @@ public interface SalaryRepository extends JpaRepository<Salary,Long> {
     @Query("SELECT s FROM Salary s WHERE s.employee.employeeId = :employeeId AND s.date = :date")
     Salary findSalaryByEmployeeIdAndDate(String employeeId, Date date);
 
+//    @Query("SELECT s. ")
 }
