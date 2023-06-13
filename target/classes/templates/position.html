@@ -54,13 +54,15 @@
             <tr class="text-dark">
               <th scope="col">Chức Vụ</th>
               <th scope="col">Số lượng</th>
+              <th scope="col">Lương cơ bản</th>
+
             </tr>
             </thead>
             <tbody>
             <tr th:each="position:${ListCounts}">
               <td th:text="${position[0]}"/>
               <td th:text="${position[1]}"/>
-
+              <td th:text="${position[2]}"/>
             </tr>
             </tbody>
           </table>

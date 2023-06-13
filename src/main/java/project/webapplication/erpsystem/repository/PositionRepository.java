@@ -16,4 +16,7 @@ public interface PositionRepository  extends JpaRepository<Position, Long> {
 
     @Query("Select p From Position p Where p.positionName = :name")
     Position findByName(String name);
+
+    @Override
+    void deleteById(Long aLong);
 }

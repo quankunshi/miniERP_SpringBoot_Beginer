@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -19,6 +20,9 @@ public class Position {
 
     @Column(name = "position_name", length = 30)
     private String positionName;
+
+    @Column(name = "position_salarybase")
+    private BigDecimal salaryBase;
 
 
 
