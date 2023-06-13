@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+
+<head th:replace="~{fragments/head :: head}"></head>
+
+
+<body>
+
+<div class="container-xxl position-relative bg-white d-flex p-0">
+    <!-- Spinner Start -->
+
+    <div id="spinner"
+
+         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+
+        </div>
+
+    </div>
+    <!-- Spinner End -->
+
+
+    <!-- Sidebar Start -->
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <!-- Sidebar End -->
+
+
+    <!-- Content Start -->
+
+    <div class="content">
+        <!-- Navbar Start -->
+
+        <div th:replace="~{fragments/header :: header}"></div>
+        <!-- Navbar End -->
+
+
+        <!-- Table Start -->
+
+        <div class="container-fluid pt-4 px-4">
+
+            <div class="bg-light  rounded p-4">
+
+                <div class="d-flex flex-row align-items-center mb-4">
+                    <p>
+                        <a class="mb-0" th:href="@{/attendance}">Chấm công</a>
+                        >>>
+                        <a class="mb-0" th:href="@{/attendanceDetail/{id}(id=${employeeDetail.employeeId})}">Chi tiết
+                            chấm công</a>
+                    </p>
+
+                </div>
+
+                <div>
+
+                    <div class="container">
+
+                        <div class="row">
+
+                            <div class="col-lg-12 mb-4 mb-sm-5">
+
+                                <div class="card card-style1 border-0">
+
+                                    <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
+
+                                        <div class="row align-items-center">
+
+                                            <div class="col-lg-6 mb-4 mb-lg-0">
+                                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                                                     alt="...">
+
+                                            </div>
+
+                                            <div class="col-lg-6 px-xl-10">
+
+                                                <div class="bg-secondary d-lg-inline-block py-1-9 px-1-9 px-sm-6 mb-1-9 rounded">
+                                                    <h3 class="h2 text-white mb-0"
+                                                        th:text="${employeeDetail.employeeName}"></h3>
+
+                                                </div>
+
+                                                <ul class="list-unstyled">
+
+                                                    <li class="d-flex flex-row">
+                                                        <p>Mã Nhân Viên: </p>
+                                                        <p th:text="${employeeDetail.employeeId}"></p>
+
+                                                    </li>
+
+                                                    <li class="d-flex flex-row">
+                                                        <p>Chức Vụ: </p>
+                                                        <span
+                                                                th:unless="${employeeDetail.positions}">Chưa phân công</span>
+                                                        <span th:each="position: ${employeeDetail.positions}"
+                                                              th:text="${position.positionName}"></span>
+
+                                                    </li>
+                                                    <li class="d-flex flex-row">
+                                                        <p>Ngày Vào Làm: </p>
+                                                        <p th:text="${employeeDetail.joiningDate}"></p>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
+                                            <div>
+                                                <table class="table text-left align-middle table-bordered table-hover mb-0">
+                                                    <thead>
+                                                    <tr class="text-dark">
+                                                        <th scope="col">Họ và Tên</th>
+                                                        <th scope="col">Ngày</th>
+                                                        <th scope="col">Giờ vào</th>
+                                                        <th scope="col">Giờ ra</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr th:each="attendance:${attendanceDtoList}">
+                                                        <div th:each="employee:${attendance.employee}">
+                                                            <td th:text="${employee.employeeName}"/>
+                                                        </div>
+                                                        <td>
+                                                            <span th:text="${attendance.checkIn}"></span>
+                                                        </td>
+                                                        <td>
+                                                            <span th:text="${attendance.timeIn}"></span>
+                                                        </td>
+                                                        <td>
+                                                            <span th:text="${attendance.timeOut}"></span>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- Table End -->
+
+
+                </div>
+                <!-- Content End -->
+
+                <!-- Footer Start -->
+
+                <div th:replace="~{fragments/footer :: footer}"></div>
+                <!-- Footer End -->
+                <!-- Back to Top -->
+                <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top">
+                    <i class="bi bi-arrow-up"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- script -->
+
+<script th:replace="~{fragments/script :: script}"></script>
+
+</body>
+
+
+</html>

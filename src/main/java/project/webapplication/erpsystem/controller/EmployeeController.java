@@ -96,7 +96,6 @@ public class EmployeeController {
             employeeDto = (EmployeeDto) model.getAttribute("employeeDetail");
             model.addAttribute("employeeDetail", employeeDto);
         }
-        System.out.println(employeeDto);
         model.addAttribute("title","Chi Tiết Nhân Viên");
         return "detail";
     }

@@ -1,9 +1,18 @@
 package project.webapplication.erpsystem.models;
 
 import jakarta.persistence.*;
-import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "attendance")
 public class Attendance {
     @Id
@@ -17,13 +26,13 @@ public class Attendance {
 
 
     @Column(name = "check_in")
-    private Date checkIn;
+    private LocalDate checkIn;
 
-    @Column(name = "check_out")
-    private Date checkOut;
+    @Column(name = "time_in")
+    private LocalTime timeIn;
+    @Column(name = "time_out")
+    private LocalTime timeOut;
 
-    @Column(name = "hours_worked")
-    private boolean hoursWorked;
     // Constructors, getters, and setters
 }
 

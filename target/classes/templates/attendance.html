@@ -5,69 +5,90 @@
 
 <body>
 <div class="container-xxl position-relative bg-white d-flex p-0">
-  <!-- Spinner Start -->
-  <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-      <span class="sr-only">Loading...</span>
-    </div>
-  </div>
-  <!-- Spinner End -->
-
-
-  <!-- Sidebar Start -->
-  <div th:replace="~{fragments/sidebar :: sidebar}"></div>
-  <!-- Sidebar End -->
-
-
-  <!-- Content Start -->
-  <div class="content">
-    <!-- Navbar Start -->
-    <div th:replace="~{fragments/header :: header}"></div>
-    <!-- Navbar End -->
-
-
-    <!-- Form Start -->
-    <div class="container-fluid pt-4 px-4">
-      <div class="bg-light text-center rounded p-4">
-        <h4 class="text-left mb-0">Bảng Chấm Công</h4><br>
-        <div class="d-flex flex-column text-left">
-          <div class="col-12" th:each="employeeDto : ${employeeDtoList}">
-            <div class="card mb-12">
-              <div class="card-body">
-                <h5 class="card-title" th:text="${employeeDto.employeeName}"></h5>
-              </div>
-            </div><br>
-          </div>
+    <!-- Spinner Start -->
+    <div id="spinner"
+         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
         </div>
-      </div>
     </div>
-    <!-- Form End -->
+    <!-- Spinner End -->
 
 
-    <!-- Footer Start -->
-    <div th:replace="~{fragments/footer :: footer}"></div>
-    <!-- Footer End -->
-  </div>
-  <!-- Content End -->
+    <!-- Sidebar Start -->
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <!-- Sidebar End -->
 
 
-  <!-- Back to Top -->
-  <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    <!-- Content Start -->
+    <div class="content">
+        <!-- Navbar Start -->
+        <div th:replace="~{fragments/header :: header}"></div>
+        <!-- Navbar End -->
+
+
+        <!-- Form Start -->
+        <div class="container-fluid pt-4 px-4">
+            <div class="bg-light text-center rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h4 class="text-left mb-0">Bảng Chấm Công</h4><br>
+                    <div>
+                        <div th:if="${success}" class="alert alert-success">
+                            <p th:text="${success}" class="text-center"></p>
+                        </div>
+                        <div th:if="${failed}" class="alert alert-danger">
+                            <p th:text="${failed}" class="text-center"></p>
+                        </div>
+                    </div>
+                </div>
+              <hr>
+                <div class="d-flex flex-column text-left">
+                    <div class="col-12" th:each="employeeDto : ${employeeDtoList}">
+                        <div class="card mb-12">
+                            <div class="card-body d-flex justify-content-between">
+                                <h5 class="card-title" th:text="${employeeDto.employeeName}"></h5>
+                                <div>
+                                    <a class="bi bi-bookmark-check-fill" href=""
+                                       th:data-employeeId="${employeeDto.employeeId}" data-toggle="modal" data-target="#attendanceAddModal"></a>
+                                    <a class="bi bi-three-dots-vertical" th:href="@{/attendanceDetail/{id}(id = ${employeeDto.employeeId})}"></a>
+
+                                </div>
+                                </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+              <hr>
+            </div>
+        </div>
+
+        <!-- Form End -->
+
+
+        <!-- Footer Start -->
+        <div th:replace="~{fragments/footer :: footer}"></div>
+        <!-- Footer End -->
+    </div>
+    <!-- Content End -->
+
+    <div th:replace="~{fragments/form :: attendanceAddModal}"></div>
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 </div>
 
 <!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="lib/chart/chart.min.js"></script>
-<script src="lib/easing/easing.min.js"></script>
-<script src="lib/waypoints/waypoints.min.js"></script>
-<script src="lib/owlcarousel/owl.carousel.min.js"></script>
-<script src="lib/tempusdominus/js/moment.min.js"></script>
-<script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-<script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+<script th:replace="~{fragments/script :: script}"></script>
+<script th:inline="javascript">
+  $(document).ready(function() {
+    $('#attendanceAddModal').on('show.bs.modal', function(event) {
+      var button = $(event.relatedTarget);
+      var employeeId = button.data('employeeid')
 
-<!-- Template Javascript -->
-<script src="js/main.js"></script>
+      // Cập nhật phần tử trong modal với giá trị ID
+      $("#attendanceEmployeeId").val(employeeId);
+    });
+  });
+</script>
 </body>
 
 </html>

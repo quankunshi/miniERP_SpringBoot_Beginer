@@ -10,5 +10,10 @@ public interface AttendanceService {
 
     List<AttendanceDto> findAll();
 
+    void save(AttendanceDto attendanceDto);
+
+    List<AttendanceDto> findByEmployeeId(String id);
+
+    int countDaysByMonthAndYearAndEmployeeId(int month, int year, String employeeId);
 
 }
