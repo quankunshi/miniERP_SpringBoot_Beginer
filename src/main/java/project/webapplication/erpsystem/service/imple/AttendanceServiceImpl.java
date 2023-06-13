@@ -105,4 +105,11 @@ public class AttendanceServiceImpl implements AttendanceService {
     public int countDaysByMonthAndYearAndEmployeeId(int month, int year, String employeeId) {
         return attendanceRepository.countDaysByMonthAndYearAndEmployeeId(month,year,employeeId);
     }
+
+    @Override
+    public void countAttendanceList(List<EmployeeDto> employeeDtoList) {
+        for (EmployeeDto employeeDto : employeeDtoList){
+            employeeDto.setCountDay(countDaysByMonthAndYearAndEmployeeId(6,2023,employeeDto.getEmployeeId()));
+        }
+    }
 }

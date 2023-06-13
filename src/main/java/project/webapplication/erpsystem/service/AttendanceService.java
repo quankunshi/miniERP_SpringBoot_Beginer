@@ -1,6 +1,7 @@
 package project.webapplication.erpsystem.service;
 
 import project.webapplication.erpsystem.dto.AttendanceDto;
+import project.webapplication.erpsystem.dto.EmployeeDto;
 import project.webapplication.erpsystem.models.Attendance;
 
 import java.util.Date;
@@ -15,5 +16,7 @@ public interface AttendanceService {
     List<AttendanceDto> findByEmployeeId(String id);
 
     int countDaysByMonthAndYearAndEmployeeId(int month, int year, String employeeId);
+
+    void countAttendanceList(List<EmployeeDto> employeeDtoList);
 
 }

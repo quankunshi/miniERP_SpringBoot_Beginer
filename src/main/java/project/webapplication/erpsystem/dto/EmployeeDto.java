@@ -25,6 +25,7 @@ public class EmployeeDto {
     private LocalDate joiningDate;
     private String employeeAddress;
     private Position positions;
+    private int countDay;
 
 
 }

@@ -39,7 +39,7 @@ public class AttendanceController {
         //EmployeeDto List
         List<EmployeeDto> employeeDtoList = employeeService.findAll();
         model.addAttribute("employeeDtoList",employeeDtoList);
-
+        attendanceService.countAttendanceList(employeeDtoList);
         //AttendanceDto List
         List<AttendanceDto> attendanceDtoList = attendanceService.findAll();
         model.addAttribute("attendanceList",attendanceDtoList);
@@ -83,7 +83,6 @@ public class AttendanceController {
         redirectAttributes.addFlashAttribute("employeeDetail", employeeDto);
         List<AttendanceDto> attendanceDtoList = attendanceService.findByEmployeeId(id);
         redirectAttributes.addFlashAttribute("attendanceDtoList",attendanceDtoList);
-        System.out.println(attendanceService.countDaysByMonthAndYearAndEmployeeId(6,2023,id));
         return "redirect:/attendanceDetail";
     }
 
