@@ -25,7 +25,7 @@ create database erpsystem
 + open src/main/resources/application.properties
 + change spring.datasource.username and spring.datasource.password as per your mysql installation
 
-4. Run the app using maven
+**4. Run the app using maven**
 ```bash
 mvn spring-boot:run
 ```
