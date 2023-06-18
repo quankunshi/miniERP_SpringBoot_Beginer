@@ -21,7 +21,7 @@ public class WelfareController {
         if (principal == null){
             return "redirect:/login";
         }
-        insuranceService.addToInsuranceList();
+//        insuranceService.addToInsuranceList();
         model.addAttribute("title","Phúc Lợi");
         return "welfare";
     }
